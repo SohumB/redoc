@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isJsonLike, langFromMime } from '../../utils/openapi';
+import { isJsonLike, isJsonlinesLike, langFromMime } from '../../utils/openapi';
 import { JsonViewer } from '../JsonViewer/JsonViewer';
 import { SourceCodeWithCopy } from '../SourceCode/SourceCode';
 
@@ -10,7 +10,10 @@ export interface ExampleValueProps {
 }
 
 export function ExampleValue({ value, mimeType }: ExampleValueProps) {
-  if (isJsonLike(mimeType)) {
+  if (isJsonlinesLike(mimeType)) {
+    value = `${JSON.stringify(value, null, 0)}\n`.repeat(3);
+    return <SourceCodeWithCopy lang={langFromMime(mimeType)} source={value} />;
+  } else if (isJsonLike(mimeType)) {
     return <JsonViewer data={value} />;
   } else {
     if (typeof value === 'object') {

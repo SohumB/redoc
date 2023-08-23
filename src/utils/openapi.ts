@@ -160,6 +160,10 @@ export function isPrimitiveType(
   return isPrimitive;
 }
 
+export function isJsonlinesLike(contentType: string): boolean {
+  return contentType.search(/ndjson|jsonlines/i) !== -1;
+}
+
 export function isJsonLike(contentType: string): boolean {
   return contentType.search(/json/i) !== -1;
 }
