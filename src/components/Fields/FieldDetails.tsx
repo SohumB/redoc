@@ -53,7 +53,7 @@ export const FieldDetailsComponent = observer((props: FieldProps) => {
   }, [field, showExamples]);
 
   const defaultValue = isObject(schema.default)
-    ? getSerializedValue(field, schema.default).replace(`${field.name}=`, '')
+    ? undefined // getSerializedValue(field, schema.default).replace(`${field.name}=`, '')
     : schema.default;
 
   return (
