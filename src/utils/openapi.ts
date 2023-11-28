@@ -160,12 +160,15 @@ export function isPrimitiveType(
   return isPrimitive;
 }
 
-export function isJsonlinesLike(contentType: string): boolean {
-  return contentType.search(/ndjson|jsonlines/i) !== -1;
-}
+// matching event-stream is completely wrong: there's no guarantee
+// that a text/event-stream is jsonlines-like; but we're forced to use this
+// content type by https://github.com/cloudflare/cloudflared/issues/199
 
+export function isJsonlinesLike(contentType: string): boolean {
+  return contentType.search(/event-stream|ndjson|jsonlines/i) !== -1;
+}
 export function isJsonLike(contentType: string): boolean {
-  return contentType.search(/json/i) !== -1;
+  return contentType.search(/json|event-stream/i) !== -1;
 }
 
 export function isFormUrlEncoded(contentType: string): boolean {
